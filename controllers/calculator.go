@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-type Calculator struct {
+type Operand struct {
 	FirstVal float32 `json:"a"`
 	SecndVal float32 `json:"b"`
 }
@@ -27,25 +27,25 @@ func Div(a float32, b float32) float32 {
 	return a / b
 }
 
-func CalculatorHandler(c *gin.Context) {
-	var calculator Calculator
-	c.BindJSON(&calculator)
+func Calculator(c *gin.Context) {
+	var operand Operand
+	c.BindJSON(&operand)
 
 	// Get operator
 	urlPath := strings.Split(c.Request.URL.Path, ".")
-	op := urlPath[len(urlPath)-1]
+	operator := urlPath[len(urlPath)-1]
 
 	// Calculate
 	var result float32
-	switch op {
+	switch operator {
 	case "sum":
-		result = Sum(calculator.FirstVal, calculator.SecndVal)
+		result = Sum(operand.FirstVal, operand.SecndVal)
 	case "sub":
-		result = Sub(calculator.FirstVal, calculator.SecndVal)
+		result = Sub(operand.FirstVal, operand.SecndVal)
 	case "mul":
-		result = Mul(calculator.FirstVal, calculator.SecndVal)
+		result = Mul(operand.FirstVal, operand.SecndVal)
 	case "div":
-		result = Div(calculator.FirstVal, calculator.SecndVal)
+		result = Div(operand.FirstVal, operand.SecndVal)
 	default:
 		return
 	}
