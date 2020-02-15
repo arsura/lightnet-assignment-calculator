@@ -38,18 +38,18 @@ func CalculatorHandler(c *gin.Context) {
 
 	// Calculate
 	var result float32
-    switch op {
-    case "sum":
-    	result = Sum(calculator.FirstVal, calculator.SecndVal)
-    case "sub":
-        result = Sub(calculator.FirstVal, calculator.SecndVal)
-    case "mul":
+	switch op {
+	case "sum":
+		result = Sum(calculator.FirstVal, calculator.SecndVal)
+	case "sub":
+		result = Sub(calculator.FirstVal, calculator.SecndVal)
+	case "mul":
 		result = Mul(calculator.FirstVal, calculator.SecndVal)
 	case "div":
 		result = Div(calculator.FirstVal, calculator.SecndVal)
 	default:
 		return
-    }
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"result": result,
