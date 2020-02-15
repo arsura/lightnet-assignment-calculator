@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -50,7 +51,9 @@ func Calculator(c *gin.Context) {
 		return
 	}
 
+	resultAsString := fmt.Sprintf("%.4f", result)
 	c.JSON(http.StatusOK, gin.H{
-		"result": result,
+		"result":           result,
+		"result_as_string": resultAsString,
 	})
 }
