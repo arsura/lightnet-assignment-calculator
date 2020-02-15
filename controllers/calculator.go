@@ -7,10 +7,9 @@ import (
 )
 
 type Calculator struct {
-	FirstVal	float32    `json:"a"`
-	SecndVal	float32    `json:"b"`
+	FirstVal float32 `json:"a"`
+	SecndVal float32 `json:"b"`
 }
-
 
 func Sum(a float32, b float32) float32 {
 	return a + b
@@ -34,7 +33,7 @@ func CalculatorHandler(c *gin.Context) {
 
 	// Get operator
 	urlPath := strings.Split(c.Request.URL.Path, ".")
-	op := urlPath[len(urlPath) - 1]
+	op := urlPath[len(urlPath)-1]
 
 	// Calculate
 	var result float32

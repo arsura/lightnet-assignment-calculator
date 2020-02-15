@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/arsura/lightnet-assignment-calculator/controllers"
+	"github.com/gin-gonic/gin"
 )
 
 func Router() *gin.Engine {
