@@ -71,6 +71,13 @@ func DivHandler(c *gin.Context) {
 	var operand Operand
 	c.BindJSON(&operand)
 
+	if operand.SecndVal == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "undefined",
+		})
+		return
+	}
+
 	result := Div(operand.FirstVal, operand.SecndVal)
 
 	resultAsString := fmt.Sprintf("%.4f", result)

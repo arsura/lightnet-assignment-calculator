@@ -1,4 +1,4 @@
-package helper
+package utils
 
 import (
 	"math"
@@ -17,7 +17,7 @@ func FloatNearlyEqual(a float64, b float64, epsilon float64) bool {
 	} else if a == 0 || b == 0 || absA+absB < math.SmallestNonzeroFloat64 {
 		// a or b is zero or both are extremely close to it
 		// relative error is less meaningful here
-		return diff < (epsilon * math.MaxFloat64)
+		return diff < (epsilon * math.SmallestNonzeroFloat64)
 	} else { // use relative error
 		return diff/math.Min((absA+absB), math.MaxFloat64) < epsilon
 	}
