@@ -3,8 +3,8 @@ package unit
 import (
 	"github.com/arsura/lightnet-assignment-calculator/controllers"
 	"github.com/arsura/lightnet-assignment-calculator/tests/helper"
-	"testing"
 	"math"
+	"testing"
 )
 
 func TestSum(t *testing.T) {
