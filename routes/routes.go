@@ -10,10 +10,10 @@ func Router() *gin.Engine {
 
 	router.GET("/ping", controllers.Pong)
 
-	router.POST("/calculator.sum", controllers.Calculator)
-	router.POST("/calculator.sub", controllers.Calculator)
-	router.POST("/calculator.mul", controllers.Calculator)
-	router.POST("/calculator.div", controllers.Calculator)
+	router.POST("/calculator.sum", controllers.SumHandler)
+	router.POST("/calculator.sub", controllers.SubHandler)
+	router.POST("/calculator.mul", controllers.MulHandler)
+	router.POST("/calculator.div", controllers.DivHandler)
 
 	return router
 }
