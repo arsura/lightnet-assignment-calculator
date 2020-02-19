@@ -1,13 +1,12 @@
 package unit
 
 import (
-	// "encoding/json"
 	"bytes"
 	"encoding/json"
-	"github.com/arsura/lightnet-assignment-calculator/controllers"
-	"github.com/arsura/lightnet-assignment-calculator/routes"
-	"github.com/arsura/lightnet-assignment-calculator/tests/helper"
-	"github.com/arsura/lightnet-assignment-calculator/utils"
+	"github.com/arsura/lightnet-assignment-calculator/controller"
+	"github.com/arsura/lightnet-assignment-calculator/router"
+	"github.com/arsura/lightnet-assignment-calculator/test/helper"
+	"github.com/arsura/lightnet-assignment-calculator/util"
 	"math"
 	"net/http"
 	"testing"
@@ -27,8 +26,8 @@ func TestSum(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		total := controllers.Sum(table.a, table.b)
-		if !utils.FloatNearlyEqual(total, table.result, 0.00001) {
+		total := controller.Sum(table.a, table.b)
+		if !util.FloatNearlyEqual(total, table.result, 0.00001) {
 			t.Errorf("%f + %f, got: %f, want: %f.", table.a, table.b, total, table.result)
 		}
 	}
@@ -47,8 +46,8 @@ func TestSub(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		total := controllers.Sub(table.a, table.b)
-		if !utils.FloatNearlyEqual(total, table.result, 0.00001) {
+		total := controller.Sub(table.a, table.b)
+		if !util.FloatNearlyEqual(total, table.result, 0.00001) {
 			t.Errorf("%f - %f, got: %f, want: %f.", table.a, table.b, total, table.result)
 		}
 	}
@@ -68,8 +67,8 @@ func TestMul(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		total := controllers.Mul(table.a, table.b)
-		if !utils.FloatNearlyEqual(total, table.result, 0.00001) {
+		total := controller.Mul(table.a, table.b)
+		if !util.FloatNearlyEqual(total, table.result, 0.00001) {
 			t.Errorf("%f * %f, got: %f, want: %f.", table.a, table.b, total, table.result)
 		}
 	}
@@ -89,8 +88,8 @@ func TestDiv(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		total := controllers.Div(table.a, table.b)
-		if !utils.FloatNearlyEqual(total, table.result, 0.00001) {
+		total := controller.Div(table.a, table.b)
+		if !util.FloatNearlyEqual(total, table.result, 0.00001) {
 			t.Errorf("%f / %f, got: %f, want: %f.", table.a, table.b, total, table.result)
 		}
 	}
@@ -106,13 +105,13 @@ func TestHTTPSumCode200(t *testing.T) {
 		}
 		bytesRepresentation, _ := json.Marshal(data)
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.sum", bytes.NewBuffer(bytesRepresentation))
 
 		var resp map[string]float64
 		json.NewDecoder(w.Body).Decode(&resp)
 
-		if !utils.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
+		if !util.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
 			t.Errorf("%f + %f, got: %f, want: %f", data["a"], data["b"], resp["result"], expectedResult)
 		}
 
@@ -125,7 +124,7 @@ func TestHTTPSumCode200(t *testing.T) {
 func TestHTTPSumCode400(t *testing.T) {
 	t.Run("it should return httpCode 400BadRequest", func(t *testing.T) {
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.sum", nil)
 
 		if status := w.Code; status != http.StatusBadRequest {
@@ -144,13 +143,13 @@ func TestHTTPSubCode200(t *testing.T) {
 		}
 		bytesRepresentation, _ := json.Marshal(data)
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.sub", bytes.NewBuffer(bytesRepresentation))
 
 		var resp map[string]float64
 		json.NewDecoder(w.Body).Decode(&resp)
 
-		if !utils.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
+		if !util.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
 			t.Errorf("%f - %f, got: %f, want: %f", data["a"], data["b"], resp["result"], expectedResult)
 		}
 
@@ -163,7 +162,7 @@ func TestHTTPSubCode200(t *testing.T) {
 func TestHTTPSubCode400(t *testing.T) {
 	t.Run("it should return httpCode 400BadRequest", func(t *testing.T) {
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.sub", nil)
 
 		if status := w.Code; status != http.StatusBadRequest {
@@ -182,13 +181,13 @@ func TestHTTPMulCode200(t *testing.T) {
 		}
 		bytesRepresentation, _ := json.Marshal(data)
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.mul", bytes.NewBuffer(bytesRepresentation))
 
 		var resp map[string]float64
 		json.NewDecoder(w.Body).Decode(&resp)
 
-		if !utils.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
+		if !util.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
 			t.Errorf("%f * %f, got: %f, want: %f", data["a"], data["b"], resp["result"], expectedResult)
 		}
 
@@ -201,7 +200,7 @@ func TestHTTPMulCode200(t *testing.T) {
 func TestHTTPSMulCode400(t *testing.T) {
 	t.Run("it should return httpCode 400BadRequest", func(t *testing.T) {
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.mul", nil)
 
 		if status := w.Code; status != http.StatusBadRequest {
@@ -220,13 +219,13 @@ func TestHTTPDivCode200(t *testing.T) {
 		}
 		bytesRepresentation, _ := json.Marshal(data)
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.div", bytes.NewBuffer(bytesRepresentation))
 
 		var resp map[string]float64
 		json.NewDecoder(w.Body).Decode(&resp)
 
-		if !utils.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
+		if !util.FloatNearlyEqual(resp["result"], expectedResult, 0.00001) {
 			t.Errorf("%f * %f, got: %f, want: %f", data["a"], data["b"], resp["result"], expectedResult)
 		}
 
@@ -245,7 +244,7 @@ func TestHTTPDivDivisorIsZeroCode400(t *testing.T) {
 		}
 		bytesRepresentation, _ := json.Marshal(data)
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.div", bytes.NewBuffer(bytesRepresentation))
 
 		var resp map[string]float64
@@ -260,7 +259,7 @@ func TestHTTPDivDivisorIsZeroCode400(t *testing.T) {
 func TestHTTPSDivCode400(t *testing.T) {
 	t.Run("it should return httpCode 400BadRequest", func(t *testing.T) {
 
-		router := routes.Router()
+		router := router.Router()
 		w := helper.PerformRequest(router, http.MethodPost, "/calculator.div", nil)
 
 		if status := w.Code; status != http.StatusBadRequest {

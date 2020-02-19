@@ -1,7 +1,7 @@
 package unit
 
 import (
-	"github.com/arsura/lightnet-assignment-calculator/utils"
+	"github.com/arsura/lightnet-assignment-calculator/util"
 	"testing"
 )
 
@@ -19,7 +19,7 @@ func TestFloatNearlyEqual(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		isEqual := utils.FloatNearlyEqual(table.a, table.b, 0.00001)
+		isEqual := util.FloatNearlyEqual(table.a, table.b, 0.00001)
 		if isEqual != table.result {
 			t.Errorf("%f == %f, got: %v, want: %v.", table.a, table.b, isEqual, table.result)
 		}

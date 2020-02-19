@@ -1,6 +1,6 @@
 #!/bin/sh
 
 go fmt server.go
-go fmt ./controllers/*
-go fmt ./routes/*
-go fmt ./tests/*
+go fmt ./controller/*
+go fmt ./router/*
+go fmt ./test/*

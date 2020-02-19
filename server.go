@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/arsura/lightnet-assignment-calculator/routes"
+	"github.com/arsura/lightnet-assignment-calculator/router"
 )
 
 func main() {
-	router := routes.Router()
+	router := router.Router()
 	router.Run(":8081")
 }
